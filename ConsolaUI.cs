@@ -19,6 +19,8 @@ namespace Ahorcado
 
             Console.WriteLine($"Intentos restantes: {_motor.IntentosRestantes}");
             Console.WriteLine($"Letras usadas: {string.Join(", ", _motor.LetrasUsadas)}");
+            if (_motor.MostrarPista)
+                Console.WriteLine($"Pista: la palabra empieza con '{_motor.PalabraSecreta[0]}'");
 
             Console.Write("Palabra: ");
             foreach (char c in _motor.PalabraSecreta)
