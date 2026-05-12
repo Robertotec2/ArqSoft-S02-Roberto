@@ -1,10 +1,13 @@
 ﻿using Ahorcado;
 
 var repositorio = new PalabrasEnMemoria();
-bool jugarDeNuevo = true;
+bool continuar = true;
 
-while (jugarDeNuevo)
+while (continuar)
 {
+    string seleccion = ConsolaUI.SolicitarCategoria();
+    repositorio.ConfigurarCategoria(seleccion);
+
     var motor = new MotorAhorcado(repositorio);
     var ui = new ConsolaUI(motor);
 
@@ -17,7 +20,7 @@ while (jugarDeNuevo)
 
         if (motor.LetraYaUsada(letra))
         {
-            ui.MostrarMensaje("Ya usaste esa letra. Presiona cualquier tecla...");
+            ui.MostrarMensaje("Ya usaste esa letra. Presiona una tecla...");
             Console.ReadKey();
             continue;
         }
@@ -28,9 +31,9 @@ while (jugarDeNuevo)
     ui.MostrarTablero();
 
     if (motor.Ganado())
-        ui.MostrarMensaje($"\n¡Ganaste! La palabra era: {motor.PalabraSecreta}");
+        ui.MostrarMensaje($"\n¡Felicidades! Ganaste. La palabra era: {motor.PalabraSecreta}");
     else
-        ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}");
+        ui.MostrarMensaje($"\nGame Over. La palabra era: {motor.PalabraSecreta}");
 
-    jugarDeNuevo = ui.PreguntarOtraVez();
+    continuar = ui.PreguntarOtraVez();
 }

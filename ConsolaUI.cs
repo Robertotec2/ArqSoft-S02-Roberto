@@ -11,6 +11,17 @@ namespace Ahorcado
             _motor = motor;
         }
 
+        public static string SolicitarCategoria()
+        {
+            Console.Clear();
+            Console.WriteLine("=== ELIJA UNA CATEGORÍA ===");
+            Console.WriteLine("1. Arquitectura");
+            Console.WriteLine("2. POO");
+            Console.WriteLine("3. .NET");
+            Console.Write("\nSeleccione (1-3): ");
+            return Console.ReadLine();
+        }
+
         public void MostrarTablero()
         {
             Console.Clear();
@@ -19,14 +30,15 @@ namespace Ahorcado
 
             Console.WriteLine($"Intentos restantes: {_motor.IntentosRestantes}");
             Console.WriteLine($"Letras usadas: {string.Join(", ", _motor.LetrasUsadas)}");
+
+            // Se mantiene el método de las pistas
             if (_motor.MostrarPista)
                 Console.WriteLine($"Pista: la palabra empieza con '{_motor.PalabraSecreta[0]}'");
 
             Console.Write("Palabra: ");
             foreach (char c in _motor.PalabraSecreta)
-            {
                 Console.Write(_motor.LetrasUsadas.Contains(c) ? $"{c} " : "_ ");
-            }
+
             Console.WriteLine();
         }
 
@@ -34,10 +46,7 @@ namespace Ahorcado
         {
             Console.Write("\nIngresa una letra: ");
             string input = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(input)) return ' ';
-
-            return char.ToLower(input[0]);
+            return string.IsNullOrWhiteSpace(input) ? ' ' : char.ToLower(input[0]);
         }
 
         public void MostrarMensaje(string mensaje) => Console.WriteLine(mensaje);
@@ -60,7 +69,6 @@ namespace Ahorcado
                 "  -----\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
                 "  -----\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========="
             };
-
             int indice = Math.Clamp(6 - _motor.IntentosRestantes, 0, 6);
             Console.WriteLine(etapas[indice]);
         }
